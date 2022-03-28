@@ -38,25 +38,25 @@ PASS=$(cat /root/dbpassword)
 NCPASS=$(cat /root/ncpassword)
 
 # Configure mysql
-#mysqladmin -u root password "${PASS}"
-#mysql -u root -p"${PASS}" --connect-expired-password <<-EOF
-#ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${PASS}';
-#CREATE USER '${USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${PASS}';
-#GRANT ALL PRIVILEGES ON *.* TO '${USER}'@'localhost' WITH GRANT OPTION;
-#GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'localhost';
-#FLUSH PRIVILEGES;
-#EOF
-
-mysql -u root <<-EOF
-UPDATE mysql.user SET Password=PASSWORD('${PASS}') WHERE User='root';
-DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-DELETE FROM mysql.user WHERE User='';
-DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
-CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASS}';
+mysqladmin -u root password "${PASS}"
+mysql -u root -p"${PASS}" --connect-expired-password <<-EOF
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${PASS}';
+CREATE USER '${USER}'@'localhost' IDENTIFIED WITH mysql_native_password BY '${PASS}';
 GRANT ALL PRIVILEGES ON *.* TO '${USER}'@'localhost' WITH GRANT OPTION;
 GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'localhost';
 FLUSH PRIVILEGES;
 EOF
+
+#mysql -u root <<-EOF
+#UPDATE mysql.user SET Password=PASSWORD('${PASS}') WHERE User='root';
+#DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+#DELETE FROM mysql.user WHERE User='';
+#DELETE FROM mysql.db WHERE Db='test' OR Db='test_%';
+#CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASS}';
+#GRANT ALL PRIVILEGES ON *.* TO '${USER}'@'localhost' WITH GRANT OPTION;
+#GRANT ALL PRIVILEGES ON ${DB}.* TO '${USER}'@'localhost';
+#FLUSH PRIVILEGES;
+#EOF
 
 
 # Make the default log directory
