@@ -38,8 +38,8 @@ PASS=$(cat /root/dbpassword)
 NCPASS=$(cat /root/ncpassword)
 
 # Configure mysql
-mysqladmin -u root password "${PASS}"
-mysql -u root -p"${PASS}" --connect-expired-password <<-EOF
+mysqladmin -u root password "${PASS}" <<-EOF
+#mysql -u root -p"${PASS}" --connect-expired-password 
 set global validate_password_policy=0
 set global validate_password_length=1
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${PASS}';
