@@ -50,8 +50,8 @@ NCPASS=$(cat /root/ncpassword)
 #EOF
 
 mysql -u root <<-EOF
-set global validate_password_policy=0;
-set global validate_password_length=1;
+#set global validate_password_policy=0;
+#set global validate_password_length=1;
 ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '${PASS}';
 CREATE USER '${USER}'@'localhost' IDENTIFIED BY '${PASS}';
 GRANT ALL PRIVILEGES ON *.* TO '${USER}'@'localhost' WITH GRANT OPTION;
