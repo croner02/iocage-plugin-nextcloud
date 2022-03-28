@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu
 
 # Load environment variable from /etc/iocage-env
 . load_env
@@ -7,7 +8,7 @@
 sync_configuration
 
 # Generate self-signed TLS certificates
-generate_self_signed_tls_certificates
+#generate_self_signed_tls_certificates
 
 # Enable the necessary services
 sysrc -f /etc/rc.conf nginx_enable="YES"
